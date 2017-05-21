@@ -179,7 +179,7 @@ def make_taxii_response(taxii_xml, taxii_headers):
     response = make_response(taxii_xml)
 
     h = response.headers
-    for header, value in taxii_headers.items():
+    for header, value in list(taxii_headers.items()):
         h[header] = value
 
     return response

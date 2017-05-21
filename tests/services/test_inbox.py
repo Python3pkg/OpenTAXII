@@ -59,7 +59,7 @@ def prepare_server(server):
         'inbox-B': COLLECTIONS_B
     }
     names = set()
-    for service, collections in coll_mapping.items():
+    for service, collections in list(coll_mapping.items()):
         for coll in collections:
             if coll.name not in names:
                 coll = server.persistence.create_collection(coll)

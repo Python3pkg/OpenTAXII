@@ -93,7 +93,7 @@ def prepare_subscription_request(collection, action, version,
 
 
 def includes(superset, subset):
-    return all(item in superset.items() for item in subset.items())
+    return all(item in list(superset.items()) for item in list(subset.items()))
 
 
 def is_headers_valid(headers, version, https):

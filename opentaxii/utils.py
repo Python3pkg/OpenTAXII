@@ -43,7 +43,7 @@ def initialize_api(api_config):
 
 
 def parse_basic_auth_token(token):
-    print("'{}'".format(token), len(token))
+    print(("'{}'".format(token), len(token)))
     try:
         value = base64.b64decode(token)
     except (TypeError, binascii.Error):
@@ -60,7 +60,7 @@ def parse_basic_auth_token(token):
 class PlainRenderer(object):
 
     def __call__(self, logger, name, event_dict):
-        pairs = ', '.join(['%s=%s' % (k, v) for k, v in event_dict.items()])
+        pairs = ', '.join(['%s=%s' % (k, v) for k, v in list(event_dict.items())])
         return (
             '{timestamp} [{logger}] {level}: {event} {{{pairs}}}'
             .format(pairs=pairs, **event_dict))
@@ -95,7 +95,7 @@ def configure_logging(logging_levels, plain=False):
     root_logger = logging.getLogger()
     root_logger.addHandler(handler)
 
-    for logger, level in logging_levels.items():
+    for logger, level in list(logging_levels.items()):
 
         if logger.lower() == 'root':
             logger = ''
@@ -104,7 +104,7 @@ def configure_logging(logging_levels, plain=False):
 
 
 def _remove_all_existing_log_handlers():
-    for logger in logging.Logger.manager.loggerDict.values():
+    for logger in list(logging.Logger.manager.loggerDict.values()):
         if hasattr(logger, 'handlers'):
             del logger.handlers[:]
 
